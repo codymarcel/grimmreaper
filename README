@@ -1,0 +1,26 @@
+SUMMARY
+GrimmReaper is a distributed service failover testing framework. On the surface its a simple local command executor API exposed over REST. 
+
+The command framework is designed to be generic so that any implementation of the commands can easily be injected using Guice into the servlets without changing the appcode. This makes mocking or defining new command implementations a simple config change.
+
+Since communication is over HTTP, controllors / test scripts can be written in any language and run from any machine that has access to the cluster.
+
+BUILD
+git clone git://foundry.internal.salesforce.com/cmarcel/grimmreaper.git
+cd grimmreaper
+mvn package
+
+scp target/GrimmReaper-0.1-SNAPSHOT-jar-with-dependencies.jar to each node in the cluster.
+
+RUN
+$JAVA_HOME/bin/java -jar GrimmReaper-0.1-SNAPSHOT-jar-with-dependencies.jar
+
+curl http://server:9997/cluster?command=stop
+
+TODO
+
+1. Everything that isn't done.
+2. Security
+3. Add logging
+4. Make config injectable
+5. parameterize all the hard coded crap.
